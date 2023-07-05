@@ -163,6 +163,10 @@
 
 @media screen and (max-width:600px) and (min-width:360px) {
 
+  body {
+    font-size: 5vmin;
+  }
+
   .nav-item {
     display: none;
     padding: 3px;
@@ -176,6 +180,10 @@
   .menu_btn {
     display: flex;
     align-items: center;
+  }
+
+  .flag {
+    font-size: 10vmin;
   }
 
   .promotion {
