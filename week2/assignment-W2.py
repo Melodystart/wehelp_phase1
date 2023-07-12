@@ -182,3 +182,36 @@ def find_index_of_car(seats, status, number):
 find_index_of_car([3, 1, 5, 4, 2], [0, 1, 0, 1, 1], 2) # print 4
 find_index_of_car([1, 0, 5, 1, 3], [0, 1, 0, 1, 1], 4) # print -1
 find_index_of_car([4, 6, 5, 8], [0, 1, 1, 1], 4) # print 2
+
+print("=== Additional Task 1 ===")
+
+def max_product(nums): 
+# your code here 
+
+  for i in range(len(nums)-1):
+    for j in range(i+1, len(nums)):
+      if i == 0:
+        ans = nums[i]*nums[j]
+      else:
+        if nums[i]*nums[j] > ans:
+          ans = nums[i]*nums[j]
+  print (ans)
+
+max_product([5, 20, 2, 6]) # print 120 
+max_product([10, -20, 0, 3]) # print 30 
+max_product([10, -20, 0, -3]) # print 60 
+max_product([-1, 2]) # print -2 
+max_product([-1, 0, 2]) # print 0 
+max_product([5,-1, -2, 0]) # print 2 
+max_product([-5, -2]) # print 10 
+
+print("=== Additional Task 2 ===")
+
+def two_sum(nums, target): 
+  # your code here 
+  for i in range(len(nums)-1):
+    for j in range(i+1,len(nums)):
+      if nums[i]+nums[j] == target:
+        return [i,j]
+result=two_sum([2, 11, 7, 15], 9) 
+print(result) # show [0,2] because nums[0]+nums[2] is 9 
