@@ -10,7 +10,8 @@
 <body>
   <script>
     console.log("=== Task 1 ===");
-    function find_and_print(messages) {
+    function find_and_print(messages) {  //時間複雜度 O(k * j * n)
+
       // write down your judgment rules in comments
       // 設定>17規則關鍵字，並檢查若含否定句關鍵字(not、n't)則需剃除
 
@@ -49,7 +50,7 @@
     });
 
     console.log("=== Task 2 ===");
-    function calculate_sum_of_bonus(data) {
+    function calculate_sum_of_bonus(data) {  //時間複雜度 3 * O(n)
 
       // write down your bonus rules in comments
 
@@ -105,9 +106,11 @@
         bonus += bonus_list[name];
       }
       // 每人分配到獎金較薪資之月數
-      // console.log(bonus_month)
+      // console.log(bonus_month) 
+      // {'John': 0.148148, 'Bob': 0.074074, 'Jenny': 0.02222}
       // 每人分配到獎金amount
       // console.log(bonus_list)
+      // {'John': 4444, 'Bob': 4444, 'Jenny': 1111}
       console.log(bonus);
     }
 
@@ -135,7 +138,7 @@
     }); // call calculate_sum_of_bonus function
 
     console.log("=== Task 3 ===");
-    function func(...data) {
+    function func(...data) { // 時間複雜度 2*O(m*n)
       // your code here
 
       middle_name = {};
@@ -179,7 +182,7 @@
     func("郭宣雅", "林靜宜", "郭宣恆", "林靜花"); // print 沒有
 
     console.log("=== Task 4 ===");
-    function get_number(index) {
+    function get_number(index) {  //時間複雜度 O(1)
       // your code here
       console.log(Math.floor(index / 2) * 3 + index % 2 * 4);
     }
@@ -189,7 +192,7 @@
 
     console.log("=== Task 5 ===");
 
-    function find_index_of_car(seats, status, number) {
+    function find_index_of_car(seats, status, number) {  //時間複雜度 O(n)
       // your code here
       let ans = -1;
       for (let i = 0; i < status.length; i++) {
@@ -219,7 +222,7 @@
     find_index_of_car([4, 6, 5, 8], [0, 1, 1, 1], 4); // print 2
 
     console.log("=== Additional Task 1 ===");
-    function max_product(nums) {
+    function max_product(nums) {  // 時間複雜度 O(n ^ 2)
       // your code here
 
       for (let i = 0; i < (nums.length - 1); i++) {
@@ -245,7 +248,7 @@
 
     console.log("=== Additional Task 2 ===");
 
-    function two_sum(nums, target) {
+    function two_sum(nums, target) {  // 時間複雜度 O(n ^ 2)
       // your code here
       for (let i = 0; i < (nums.length - 1); i++) {
         for (let j = i + 1; j < nums.length; j++) {

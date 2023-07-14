@@ -1,5 +1,7 @@
 print ("=== Task 1 ===")
-def find_and_print(messages):
+
+def find_and_print(messages):  #時間複雜度 O(k*j*n)
+
 # write down your judgment rules in comments
 # 設定>17的規則關鍵字，並檢查若含否定句關鍵字(not、n't)則需剃除
 
@@ -32,9 +34,10 @@ find_and_print({
 })
 
 print ("=== Task 2 ===")
-def calculate_sum_of_bonus(data):
-# write down your bonus rules in comments
 
+def calculate_sum_of_bonus(data):  #時間複雜度 3*O(n)
+
+# write down your bonus rules in comments
 #以獎金發放較薪資之月數為激勵方式，下列為3個role各自performance加權，主要考量原因說明：
 #1. Sales績效對營收波動影響較短期顯著，故在above average 加權最多為3倍、below average波動亦較Engineer大為0.3倍
 #2. CEO之Salary最多，故above average加權最少為1.5倍;此外錯誤的決策對公司影響鉅大，故其below average倍數最低為0.1倍
@@ -46,7 +49,7 @@ def calculate_sum_of_bonus(data):
 # your code here, based on your own rules
 
   #資料文字處理
-  for i in range(3): 
+  for i in range(3):
     if ("USD" in str(data["employees"][i]["salary"])):
       data["employees"][i]["salary"] = int(data["employees"][i]["salary"].replace("USD", ""))*30
     data["employees"][i]["salary"] = int(str(data["employees"][i]["salary"]).replace(",", ""))
@@ -84,8 +87,8 @@ def calculate_sum_of_bonus(data):
 
     bonus += bonus_list[name]
   #每人分配到獎金較薪資之月數
-  #print(bonus_month)
-  #每人分配到獎金amount
+  #print(bonus_month) {'John': 0.148148, 'Bob': 0.074074, 'Jenny': 0.02222}
+  #每人分配到獎金amount {'John': 4444, 'Bob': 4444, 'Jenny': 1111}
   #print(bonus_list)
 
   print(bonus)
@@ -114,7 +117,9 @@ calculate_sum_of_bonus({
 }) # call calculate_sum_of_bonus function
 
 print("=== Task 3 ===")
-def func(*data):
+
+def func(*data):  #時間複雜度 2*O(m*n)
+
 # your code here
   middle_name = {}
   unique_name = []
@@ -149,7 +154,8 @@ func("郭靜雅", "王立強", "林靜宜", "郭立恆", "林花花") # print �
 func("郭宣雅", "林靜宜", "郭宣恆", "林靜花") # print 沒有
 
 print("=== Task 4 ===")
-def get_number(index):
+
+def get_number(index): #時間複雜度 O(1)
 # your code here
 
   print(index//2 *3 + index%2 *4)
@@ -160,7 +166,7 @@ get_number(10) # print 15
 
 print("=== Task 5 ===")
 
-def find_index_of_car(seats, status, number):
+def find_index_of_car(seats, status, number): #時間複雜度 O(n)
 # your code here
   ans = -1
   for i in range(len(status)):
@@ -185,7 +191,7 @@ find_index_of_car([4, 6, 5, 8], [0, 1, 1, 1], 4) # print 2
 
 print("=== Additional Task 1 ===")
 
-def max_product(nums): 
+def max_product(nums):   #時間複雜度 O(n^2)
 # your code here 
 
   for i in range(len(nums)-1):
@@ -207,7 +213,7 @@ max_product([-5, -2]) # print 10
 
 print("=== Additional Task 2 ===")
 
-def two_sum(nums, target): 
+def two_sum(nums, target):  #時間複雜度 O(n^2)
   # your code here 
   for i in range(len(nums)-1):
     for j in range(i+1,len(nums)):
