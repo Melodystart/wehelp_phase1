@@ -26,7 +26,7 @@ def singin():
     session["SIGNED-IN"] = True
     return redirect("/member")
   else:
-    return redirect("/error?message=帳號或密碼錯誤")
+    return redirect("/error?message=帳號或密碼輸入錯誤")
 
 @app.route("/member")
 def member():
