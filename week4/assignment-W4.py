@@ -45,13 +45,9 @@ def signout():
   session["SIGNED-IN"] = False
   return redirect("/")
 
-@app.route("/square",methods=['POST'])
-def square():
-  number = request.form['number']
-  return redirect("/square/" + number)
-
-@app.route("/square/<int:number>")
+@app.route("/square/<int:number>",methods=['POST'])
 def square_number(number):
+  number = int(request.form['number'])
   number = number**2
   return render_template("number.html", number=number)
 

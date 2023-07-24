@@ -24,33 +24,34 @@
   <hr />
   <div class="information">
     <h3>計算正整數的平方</h3>
-    <form action="/square" method="POST">
+    <form class="url" action="/square/" method="POST">
       正整數 <input type="int" id="number" name="number"><br />
       <button onclick="btnNumber()">計算</button>
     </form>
   </div>
 
   <script>
-    let agree = document.querySelector("#agree")
 
     function btnLogin() {
+      let agree = document.querySelector("#agree")
       if (!agree.checked) {
         window.alert("請先確認是否勾選「同意條款」");
         window.event.returnValue = false
       }
     }
 
-    let number = document.querySelector("#number")
 
     function btnNumber() {
+      let number = document.querySelector("#number")
+      let url = document.querySelector(".url")
       let num = Number(number.value)
+
       if (Number.isInteger(num) && num > 0) {
-        pass
+        url.action = url.action + num
       } else {
         window.alert("請輸入正整數")
         window.event.returnValue = false
       }
-
 
     }
   </script>
