@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入系統</title>
+  <link rel="stylesheet" href="template.css">
+</head>
+
+<body>
+  <div class="title">
+    <h2>歡迎光臨，請輸入帳號密碼</h2>
+  </div>
+  <div class="information">
+    <h3>登入系統</h3>
+    <form action="/signin" method="POST">
+      帳號 <input type="text" name="account"><br />
+      密碼 <input type="password" name="password"><br />
+      同意條款 <input type="checkbox" id="agree" name="agree"><br />
+      <button onclick="btnLogin()">登入</button>
+    </form>
+  </div>
+  <hr />
+  <div class="information">
+    <h3>計算正整數的平方</h3>
+    <form action="/square" method="POST">
+      正整數 <input type="int" id="number" name="number"><br />
+      <button onclick="btnNumber()">計算</button>
+    </form>
+  </div>
+
+  <script>
+    let agree = document.querySelector("#agree")
+
+    function btnLogin() {
+      if (!agree.checked) {
+        window.alert("請先確認是否勾選「同意條款」");
+        window.event.returnValue = false
+      }
+    }
+
+    let number = document.querySelector("#number")
+
+    function btnNumber() {
+      let num = Number(number.value)
+      if (Number.isInteger(num) && num > 0) {
+        pass
+      } else {
+        window.alert("請輸入正整數")
+        window.event.returnValue = false
+      }
+
+
+    }
+  </script>
+</body>
+
+</html>
