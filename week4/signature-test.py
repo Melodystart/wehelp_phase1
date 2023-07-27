@@ -14,7 +14,7 @@ msg = session_value + (b'.') + timestamp
 s = Signer(secret_key, salt='cookie-session', sep='.', key_derivation='hmac', digest_method=sha1, algorithm=None)
 ans1 = base64_encode(s.get_signature(msg))
 
-#方法二：沒加salt
+#方法二：
 h = hmac.new(secret_key, msg, sha1)
 ans2 = base64_encode(h.hexdigest())
 
