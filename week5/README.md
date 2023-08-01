@@ -110,6 +110,12 @@ INSERT INTO message (member_id, content, like_count) VALUES (7, 'Winnie Pooh',8)
 
 INSERT INTO message (member_id, content, like_count) VALUES (7, 'Doing nothing often leads to the very best something.',99);
 
+INSERT INTO message (member_id, content, like_count) VALUES (7, "Dreams don't come for free.",9);
+
+INSERT INTO message (member_id, content, like_count) VALUES (7, "It’s today, my favorite day.",100);
+
+INSERT INTO message (member_id, content, like_count) VALUES (7, "I always get to where I'm going...by walking away from where I have been.",101);
+
 INSERT INTO message (member_id, content, like_count) VALUES (4, "I didn't fail the test. I just found 100 ways to do it wrong.",11);
 ```
 ![Image text](https://github.com/Melodystart/wehelp_phase1/blob/main/week5/png/request5.1.png)
