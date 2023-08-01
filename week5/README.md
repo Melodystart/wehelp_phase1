@@ -25,7 +25,8 @@ INSERT INTO member (name, username, password, follower_count) VALUES ('winnie', 
 
 INSERT INTO member (name, username, password, follower_count) VALUES ('bearmaji', 'bearmaji','bearmaji',4);
 ```
-![Alt text](/png/request3-1.png)
+![Image text](https://github.com/Melodystart/wehelp_phase1/blob/main/week5/png/request3-1.png)
+
 
 - 使⽤ SELECT 指令取得所有在 member 資料表中的會員資料。
 ```
