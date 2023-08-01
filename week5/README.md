@@ -79,6 +79,8 @@ SELECT SUM(follower_count) FROM member;
 SELECT AVG(follower_count) FROM member;
 ```
 ![Image text](https://github.com/Melodystart/wehelp_phase1/blob/main/week5/png/request4-3.png)
+## 要求五：SQL JOIN
+
 #### 1. 在資料庫中，建立新資料表紀錄留⾔資訊，取名字為 message 。資料表中必須包含以下欄位設定：
 
 | 欄位名稱 | 資料型態 | 額外設定 | ⽤途說明 |
