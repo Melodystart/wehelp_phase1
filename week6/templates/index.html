@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入系統</title>
+  <link rel="stylesheet" href="template.css">
+</head>
+
+<body>
+  <div class="title">
+    <h2>歡迎光臨，請註冊登入系統</h2>
+  </div>
+  <div class="information">
+    <h3>註冊帳號</h3>
+    <form action="/signup" method="POST">
+      姓名 <input type="text" id="signup-name" name="name"><br />
+      帳號 <input type="text" id="signup-username" name="username"><br />
+      密碼 <input type="password" id="signup-password" name="password"><br />
+      <button onclick="btnSignup()">註冊</button>
+    </form>
+  </div>
+
+  <hr />
+
+  <div class="information">
+    <h3>登入系統</h3>
+    <form action="/signin" method="POST">
+      帳號 <input type="text" id="signin-username" name="username"><br />
+      密碼 <input type="password" id="signin-password" name="password"><br />
+      <!-- 同意條款 <input type="checkbox" id="agree" name="agree"><br /> -->
+      <button onclick="btnLogin()">登入</button>
+    </form>
+  </div>
+
+
+
+  <script>
+
+    function btnLogin() {
+      const agree = document.querySelector("#agree")
+      const username = document.querySelector("#signin-username").value.trim()
+      const password = document.querySelector("#signin-password").value.trim()
+
+      if (!username.length || !password.length) {
+        window.alert("帳號、密碼皆為登入系統必填欄位");
+        window.event.returnValue = false;
+      }
+
+      // if (!agree.checked) {
+      //   window.alert("請先確認是否勾選「同意條款」");
+      //   window.event.returnValue = false
+      // }
+    }
+
+
+    function btnSignup() {
+      const name = document.querySelector("#signup-name").value.trim()
+      const username = document.querySelector("#signup-username").value.trim()
+      const password = document.querySelector("#signup-password").value.trim()
+
+      if (!name.length || !username.length || !password.length) {
+        window.alert("姓名、帳號、密碼皆為註冊帳號必填欄位");
+        window.event.returnValue = false;
+      }
+    }
+
+  </script>
+</body>
+
+</html>
