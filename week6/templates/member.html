@@ -31,7 +31,7 @@
           {{row[2]}} ｜ <strong>{{row[0]}}</strong>：{{row[1]}}
           {% if row[3] == userId: %}
           <form action="/deleteMessage" method="POST" style="display: inline;">
-            <button onclick="confirmDelete('{{row[1]}}')" name="messageId" value={{row[4]}}>X</button>
+            <button onclick="confirmDelete(`{{row[1]}}`)" name="messageId" value={{row[4]}}>X</button>
           </form>
           {% endif %}
         </li>

@@ -1,5 +1,3 @@
-import pymongo
-import math
 from flask import *
 import mysql.connector
 
