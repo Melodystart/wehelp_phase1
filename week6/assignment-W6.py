@@ -58,7 +58,7 @@ def singin():
 
 @app.route("/member")
 def member():
-  try:
+  # try:
     if (session["SIGNED-IN"] == True):
       userId = session["userId"]
       name = session["name"]
@@ -67,8 +67,8 @@ def member():
       return render_template("member.html", name = name, data=data, userId=userId)
     else:
       return redirect("/")
-  except:
-    return redirect("/")
+  # except:
+  #   return redirect("/")
 
 @app.route("/createMessage",methods=['POST'])
 def createMessage():
