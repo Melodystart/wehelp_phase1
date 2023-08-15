@@ -102,11 +102,15 @@
           'Content-Type': 'application/json'
         },
       })
-        .then(response => {
-          response.json(),
+        .then(response => response.json())
+        .then(responseJson => {
+          if (responseJson.ok) {
             document.getElementById("updateResult").innerText = "更新成功",
-            document.getElementById("welcome").innerText = name + `，歡迎登入系統`,
-            document.querySelector("#updateName").value = ""
+              document.getElementById("welcome").innerText = name + `，歡迎登入系統`,
+              document.querySelector("#updateName").value = ""
+          } else {
+            throw new Error('沒收到修改姓名回覆ok')
+          }
         })
         .catch(error => console.error("Error:", error))
       window.event.returnValue = false;
