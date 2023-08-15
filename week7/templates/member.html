@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>會員頁面</title>
+  <link rel="stylesheet" href="template.css">
+</head>
+
+<body>
+  <div class="title">
+    <h2>歡迎光臨，這是會員頁</h2>
+  </div>
+  <div class="information">
+    <h4 id="welcome">{{ name }}，歡迎登入系統</h4>
+    <a href="/signout">
+      <div>登出系統</div>
+    </a>
+    <br>
+    <h4><strong>查詢會員姓名</strong></h4>
+    <form action="/member">
+      <input type="text" id="inquiryUsername" name="inquiryUsername" placeholder="請輸入帳號">
+      <button id="btnGetData">查詢</button>
+    </form>
+    <div id="inquiryResult"></div>
+    <br>
+    <h4><strong>更新我的姓名</strong></h4>
+    <form action="/member">
+      <input type="text" id="updateName" name="updateName" placeholder="輸入新的姓名">
+      <button id="btnUpdateName">更新</button>
+    </form>
+    <div id="updateResult"></div>
+    <br>
+    <hr />
+    <h4><strong>快來留言吧</strong></h4>
+    <form action="/createMessage" method="POST">
+      內容 <input type="text" id="content" name="content"><br />
+      <button onclick="btnMessage()">送出</button>
+    </form>
+    <hr />
+    <div class="container">
+      <div class="message">
+        {% for row in data: %}
+        <li style="list-style-type:none">
+          {{row[2]}} ｜ <strong>{{row[0]}}</strong>：{{row[1]}}
+          {% if row[3] == userId: %}
+          <form action="/deleteMessage" method="POST" style="display: inline;">
+            <button onclick="confirmDelete(`{{row[1]}}`)" name="messageId" value={{row[4]}}>X</button>
+          </form>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function btnMessage() {
+      const content = document.querySelector("#content").value.trim()
+      if (!content.length) {
+        window.alert("你還沒輸入留言內容，不可為空白喔!");
+        window.event.returnValue = false;
+      }
+    }
+
+    function confirmDelete(message) {
+      const ask = "確定要刪除留言?【" + message + "】";
+      const yes = confirm(ask);
+      if (!yes) {
+        window.event.returnValue = false;
+      }
+    }
+
+    // 透過 Fetch 連接 API 查詢會員資料，並顯⽰在畫⾯上
+    const btnGetData = document.querySelector("#btnGetData");
+
+    btnGetData.addEventListener('click', function () {
+      const username = document.querySelector("#inquiryUsername").value;
+      const url = 'http://127.0.0.1:3000/api/member?username=' + username
+
+      fetch(url, { method: 'get' })
+        .then(response => response.json())
+        .then(jsonData =>
+          document.getElementById("inquiryResult").innerHTML = jsonData["data"]["name"] + `  (` + jsonData["data"]["username"] + `)`);
+      window.event.returnValue = false;
+    });
+
+    // 透過 Fetch 連接 API 修改會員姓名
+    const btnUpdateName = document.querySelector("#btnUpdateName");
+
+    btnUpdateName.addEventListener('click', function () {
+      const name = document.querySelector("#updateName").value;
+      const url = 'http://127.0.0.1:3000/api/member'
+
+      fetch(url, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          name: name,
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(response => {
+          response.json(),
+            document.getElementById("updateResult").innerText = "更新成功",
+            document.getElementById("welcome").innerText = name + `，歡迎登入系統`,
+            document.querySelector("#updateName").value = ""
+        })
+        .catch(error => console.error("Error:", error))
+      window.event.returnValue = false;
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+}
+
+.title {
+  display: flex;
+  height: 80px;
+  margin: 0;
+  background-color: #2f4f4f;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin: 0;
+}
+
+.information {
+  text-align: center;
+  font-size: 20px;
+}
+
+input,
+button {
+  margin: 6px;
+  font-size: 18px;
+}
+
+h4 {
+  margin: 15px;
+}
+
+.message {
+  text-align: left;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
