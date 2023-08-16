@@ -11,9 +11,6 @@ app.secret_key="This is my secret"
 
 conPool = pooling.MySQLConnectionPool(user='root', password='password', host='localhost', database='website', pool_name='websiteConPool', pool_size=2)
 
-con = conPool.get_connection()
-cursor = con.cursor()
-
 @app.route("/")
 def index():
   return render_template("index.html")
@@ -23,6 +20,9 @@ def singup():
   name = request.form['name']
   username = request.form['username']
   password = request.form['password']
+
+  con = conPool.get_connection()
+  cursor = con.cursor()
 
   cursor.execute("SELECT username FROM member WHERE username=%s",(username,))
   data = cursor.fetchone()
@@ -34,13 +34,22 @@ def singup():
     con.commit()
     return redirect("/")
 
+  cursor.close()
+  con.close()
+
 @app.route("/signin",methods=['POST'])
 def singin():
   username = request.form['username']
   password = request.form['password']
 
+  con = conPool.get_connection()
+  cursor = con.cursor()
+
   cursor.execute("SELECT id, name FROM member WHERE username=%s AND password=%s",(username, password))
   data = cursor.fetchone()
+
+  cursor.close()
+  con.close()
 
   if ( data == None):
     return redirect("/error?message=帳號或密碼輸入錯誤")
@@ -57,10 +66,18 @@ def member():
     if (session["SIGNED-IN"] == True):
       userId = session["userId"]
       name = session["name"]
-      cursor.execute("SELECT member.name, message.content, message.time, message.member_id, message.id FROM message LEFT JOIN member on message.member_id = member.id ORDER BY time desc")
+      username = session["username"]
+
+      con = conPool.get_connection()
+      cursor = con.cursor()
+
+      cursor.execute("SELECT member.name, message.content, message.time, message.member_id, message.id, member.username FROM message LEFT JOIN member on message.member_id = member.id ORDER BY time desc")
       data = cursor.fetchall()
       
-      return render_template("member.html", name = name, data=data, userId=userId)
+      cursor.close()
+      con.close()
+
+      return render_template("member.html", name = name, data=data, userId=userId, username=username)
     else:
       return redirect("/")
   except:
@@ -70,15 +87,31 @@ def member():
 def createMessage():
   userId = session["userId"]
   content = request.form['content']
+
+  con = conPool.get_connection()
+  cursor = con.cursor()  
+
   cursor.execute("INSERT INTO message (member_id, content) VALUES (%s, %s)",(userId, content))
   con.commit()
+
+  cursor.close()
+  con.close()
+
   return redirect("/member")
 
 @app.route("/deleteMessage",methods=['POST'])
 def deleteMessage():
   messageId = request.form['messageId']
+
+  con = conPool.get_connection()
+  cursor = con.cursor()
+
   cursor.execute("DELETE FROM message WHERE id=%s",(int(messageId),))
   con.commit()
+
+  cursor.close()
+  con.close()
+
   return redirect("/member")
 
 @app.route("/error")
@@ -98,8 +131,15 @@ def getApi():
   try:
     if (session["SIGNED-IN"] == True):  
       username = request.args.get("username", "")
+
+      con = conPool.get_connection()
+      cursor = con.cursor()
+
       cursor.execute("SELECT id, name, username FROM member WHERE username=%s",(username, ))
       data = cursor.fetchone()
+
+      cursor.close()
+      con.close()
 
       ans ={}
       ans["id"] = data[0]
@@ -121,8 +161,16 @@ def patchApi():
   try:
     if (session["SIGNED-IN"] == True):
       updateData = request.get_json()
+
+      con = conPool.get_connection()
+      cursor = con.cursor()
+
       cursor.execute("UPDATE member SET name = %s WHERE id = %s",(updateData["name"], session["userId"]))
       con.commit()
+
+      cursor.close()
+      con.close()
+
       session["name"] = updateData["name"]
       result["ok"] = True
       return result
@@ -135,5 +183,3 @@ def patchApi():
 
 app.run(port=3000)
 
-cursor.close()
-con.close()

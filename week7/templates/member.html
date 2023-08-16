@@ -13,23 +13,19 @@
     <h2>歡迎光臨，這是會員頁</h2>
   </div>
   <div class="information">
-    <h4 id="welcome">{{ name }}，歡迎登入系統</h4>
+    <h4><span id="welcome">{{ name }}</span> (<span id="userUsername">{{username}}</span>)，歡迎登入系統</h4>
     <a href="/signout">
       <div>登出系統</div>
     </a>
     <br>
     <h4><strong>查詢會員姓名</strong></h4>
-    <form action="/member">
-      <input type="text" id="inquiryUsername" name="inquiryUsername" placeholder="請輸入帳號">
-      <button id="btnGetData">查詢</button>
-    </form>
+    <input type="text" id="inquiryUsername" name="inquiryUsername" placeholder="請輸入帳號">
+    <button id="btnGetData">查詢</button>
     <div id="inquiryResult"></div>
     <br>
     <h4><strong>更新我的姓名</strong></h4>
-    <form action="/member">
-      <input type="text" id="updateName" name="updateName" placeholder="輸入新的姓名">
-      <button id="btnUpdateName">更新</button>
-    </form>
+    <input type="text" id="updateName" name="updateName" placeholder="輸入新的姓名">
+    <button id="btnUpdateName">更新</button>
     <div id="updateResult"></div>
     <br>
     <hr />
@@ -42,8 +38,9 @@
     <div class="container">
       <div class="message">
         {% for row in data: %}
-        <li style="list-style-type:none">
-          {{row[2]}} ｜ <strong>{{row[0]}}</strong>：{{row[1]}}
+        <li class="messageRow" style="list-style-type:none">
+          {{row[2]}} ｜ <strong><span class="authorName">{{row[0]}}</span></strong> (<span
+            class="authorUsername">{{row[5]}}</span>)：{{row[1]}}
           {% if row[3] == userId: %}
           <form action="/deleteMessage" method="POST" style="display: inline;">
             <button onclick="confirmDelete(`{{row[1]}}`)" name="messageId" value={{row[4]}}>X</button>
@@ -91,6 +88,8 @@
 
     btnUpdateName.addEventListener('click', function () {
       const name = document.querySelector("#updateName").value;
+      const messageItems = document.querySelectorAll(".messageRow")
+      const username = document.querySelector("#userUsername").textContent;
       const url = 'http://127.0.0.1:3000/api/member'
 
       fetch(url, {
@@ -105,15 +104,19 @@
         .then(response => response.json())
         .then(responseJson => {
           if (responseJson.ok) {
-            document.getElementById("updateResult").innerText = "更新成功",
-              document.getElementById("welcome").innerText = name + `，歡迎登入系統`,
-              document.querySelector("#updateName").value = ""
+            document.getElementById("updateResult").innerText = "更新成功"
+            document.getElementById("welcome").innerText = name
+            document.querySelector("#updateName").value = ""
+            messageItems.forEach(item => {
+              if (item.getElementsByClassName("authorUsername")[0].innerText === username) {
+                item.getElementsByClassName("authorName")[0].innerText = name;
+              }
+            })
           } else {
             throw new Error('沒收到修改姓名回覆ok')
           }
         })
         .catch(error => console.error("Error:", error))
-      window.event.returnValue = false;
     })
   </script>
 
