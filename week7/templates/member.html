@@ -13,7 +13,7 @@
     <h2>歡迎光臨，這是會員頁</h2>
   </div>
   <div class="information">
-    <h4><span id="welcome">{{ name }}</span> (<span id="userUsername">{{username}}</span>)，歡迎登入系統</h4>
+    <h4><span id="welcome">{{ name }}</span><span id="userUsername" style="display:none">{{username}}</span>，歡迎登入系統</h4>
     <a href="/signout">
       <div>登出系統</div>
     </a>
@@ -39,8 +39,8 @@
       <div class="message">
         {% for row in data: %}
         <li class="messageRow" style="list-style-type:none">
-          {{row[2]}} ｜ <strong><span class="authorName">{{row[0]}}</span></strong> (<span
-            class="authorUsername">{{row[5]}}</span>)：{{row[1]}}
+          {{row[2]}} ｜ <strong><span class="authorName">{{row[0]}}</span></strong><span class="authorUsername"
+            style="display:none">{{row[5]}}</span>：{{row[1]}}
           {% if row[3] == userId: %}
           <form action="/deleteMessage" method="POST" style="display: inline;">
             <button onclick="confirmDelete(`{{row[1]}}`)" name="messageId" value={{row[4]}}>X</button>
