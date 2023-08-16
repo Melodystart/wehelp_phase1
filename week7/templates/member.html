@@ -78,9 +78,14 @@
 
       fetch(url, { method: 'get' })
         .then(response => response.json())
-        .then(jsonData =>
-          document.getElementById("inquiryResult").innerHTML = jsonData["data"]["name"] + `  (` + jsonData["data"]["username"] + `)`);
-      window.event.returnValue = false;
+        .then(responseJson => {
+          if (responseJson["data"] === null) {
+            document.getElementById("inquiryResult").innerHTML = "找不到此帳號資料，請確認輸入是否正確"
+          } else {
+            document.getElementById("inquiryResult").innerHTML = responseJson["data"]["name"] + `  (` + responseJson["data"]["username"] + `)`
+          }
+        })
+        .catch(error => console.error("Error:", error))
     });
 
     // 透過 Fetch 連接 API 修改會員姓名
