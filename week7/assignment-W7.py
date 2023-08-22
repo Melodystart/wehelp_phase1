@@ -1,6 +1,7 @@
 from flask import *
 import mysql.connector
 from mysql.connector import pooling
+from flask_cors import CORS
 
 app = Flask(
   __name__,
@@ -146,7 +147,9 @@ def getApi():
       ans["name"] = data[1]    
       ans["username"] = data[2]
       result["data"] = ans
-      return result
+      response = make_response(result)
+      response.headers["Access-Control-Allow-Origin"] = "*"
+      return response
     else:
       result["data"] = None
       return result  
